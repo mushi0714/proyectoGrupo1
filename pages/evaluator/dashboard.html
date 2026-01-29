@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGBA - Evaluador</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <div class="logo">SGBA Evaluador</div>
+            <div class="nav-links" style="align-items: center;">
+                <span>Evaluador: <strong id="evalName">User</strong></span>
+                <button onclick="AuthManager.logout()" class="btn btn-outline" style="font-size: 0.8rem;">Cerrar
+                    Sesión</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="mb-4">Solicitudes Pendientes</h2>
+
+        <div id="pendingList"
+            style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));">
+            <!-- Dynamically populated -->
+        </div>
+
+        <div id="historySection" class="mt-4 pt-4" style="border-top: 2px solid var(--border-color);">
+            <h2 class="mb-4">Evaluadas Recientemente</h2>
+            <div id="evaluatedList"
+                style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));"></div>
+        </div>
+    </div>
+
+    <!-- Modal: Evaluar -->
+    <div id="modalEval" class="hidden"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; overflow-y: auto;">
+        <div class="card" style="width: 600px; max-width: 95%; margin: 2rem 0; max-height: 90vh; overflow-y: auto;">
+            <h3 class="mb-4">Evaluar Solicitud</h3>
+
+            <div id="appDetails" class="mb-4 p-4" style="background: #f8fafc; border-radius: 4px;">
+                <!-- Details injected here -->
+            </div>
+
+            <form id="formEval">
+                <input type="hidden" name="solicitudId" id="evalSolicitudId">
+
+                <h4 class="mb-2">Criterios de Evaluación</h4>
+
+                <div class="flex gap-4">
+                    <div class="form-group flex-1">
+                        <label class="form-label">Económico (0-40)</label>
+                        <input type="number" name="scoreEco" id="scoreEco" class="form-control" min="0" max="40"
+                            required onchange="calcTotal()">
+                    </div>
+                    <div class="form-group flex-1">
+                        <label class="form-label">Académico (0-30)</label>
+                        <input type="number" name="scoreAca" id="scoreAca" class="form-control" min="0" max="30"
+                            required onchange="calcTotal()">
+                    </div>
+                    <div class="form-group flex-1">
+                        <label class="form-label">Social (0-30)</label>
+                        <input type="number" name="scoreSoc" id="scoreSoc" class="form-control" min="0" max="30"
+                            required onchange="calcTotal()">
+                    </div>
+                </div>
+
+                <div class="text-center mb-4">
+                    <strong>Puntaje Total: <span id="totalScore">0</span> / 100</strong>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Observaciones</label>
+                    <textarea name="comments" class="form-control" rows="3" required></textarea>
+                </div>
+
+                <div class="flex gap-4 mb-4">
+                    <button type="button" class="btn btn-outline btn-block"
+                        onclick="setDecision('rechazada')">Rechazar</button>
+                    <button type="button" class="btn btn-primary btn-block"
+                        onclick="setDecision('aprobada')">Aprobar</button>
+                </div>
+                <input type="hidden" name="decision" id="decisionInput">
+            </form>
+
+            <button class="btn btn-outline btn-block" onclick="closeModal()">Cancelar</button>
+        </div>
+    </div>
+
+    <script src="../../js/core.js"></script>
+    <script>
+        AuthManager.requireRole('evaluador');
+        const user = AuthManager.getCurrentUser();
+        document.getElementById('evalName').textContent = user.name;
+
+        function loadApplications() {
+            const apps = StorageManager.get(APP_KEYS.SOLICITUDES) || [];
+            const convs = StorageManager.get(APP_KEYS.CONVOCATORIAS) || [];
+            const users = StorageManager.get(APP_KEYS.USERS) || [];
+
+            const pendingContainer = document.getElementById('pendingList');
+            const doneContainer = document.getElementById('evaluatedList');
+            pendingContainer.innerHTML = '';
+            doneContainer.innerHTML = '';
+
+            // Filter
+            const pending = apps.filter(a => a.status === 'enviada' || a.status === 'en_revision');
+            const done = apps.filter(a => a.status === 'aprobada' || a.status === 'rechazada'); // Simple view all history for now
+
+            if (pending.length === 0) pendingContainer.innerHTML = '<p class="text-muted">No hay solicitudes pendientes.</p>';
+
+            const renderCard = (a, isDone) => {
+                const conv = convs.find(c => c.id === a.convocatoriaId) || {};
+                const applicant = users.find(u => u.id === a.applicantId) || {};
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="flex justify-between mb-2">
+                        <span class="badge badge-info is-done-${isDone}">${conv.title}</span>
+                        <span class="text-muted" style="font-size: 0.8rem">${a.submissionDate}</span>
+                    </div>
+                    <h3>${applicant.name}</h3>
+                    <p class="text-muted mb-2">Promedio: ${a.formData.gpa} | Ingresos: $${a.formData.income}</p>
+                    ${!isDone ? `
+                        <button class="btn btn-primary btn-block mt-2" onclick="openEval('${a.id}')">Evaluar</button>
+                    ` : `
+                        <div class="mt-2 text-center">
+                            <span class="badge ${a.status === 'aprobada' ? 'badge-success' : 'badge-danger'}">${a.status.toUpperCase()}</span>
+                            <p class="text-muted mt-1">Puntaje: ${a.evaluation ? a.evaluation.score : 'N/A'}</p>
+                        </div>
+                    `}
+                `;
+                return card;
+            };
+
+            pending.forEach(a => pendingContainer.appendChild(renderCard(a, false)));
+            done.forEach(a => doneContainer.appendChild(renderCard(a, true)));
+        }
+
+        function openEval(id) {
+            const apps = StorageManager.get(APP_KEYS.SOLICITUDES) || [];
+            const users = StorageManager.get(APP_KEYS.USERS) || [];
+            const app = apps.find(a => a.id === id);
+            const applicant = users.find(u => u.id === app.applicantId);
+
+            if (!app) return;
+
+            document.getElementById('evalSolicitudId').value = id;
+            document.getElementById('modalEval').classList.remove('hidden');
+
+            // Populate details
+            document.getElementById('appDetails').innerHTML = `
+                <p><strong>Solicitante:</strong> ${applicant.name}</p>
+                <p><strong>Edad:</strong> ${app.formData.age}</p>
+                <p><strong>Teléfono:</strong> ${app.formData.phone}</p>
+                <p><strong>Promedio:</strong> ${app.formData.gpa}</p>
+                <p><strong>Ingresos:</strong> $${app.formData.income}</p>
+                <p><strong>Motivo:</strong><br>${app.formData.motive}</p>
+            `;
+
+            // Reset form
+            document.getElementById('formEval').reset();
+            document.getElementById('totalScore').textContent = '0';
+        }
+
+        function closeModal() {
+            document.getElementById('modalEval').classList.add('hidden');
+        }
+
+        function calcTotal() {
+            const eco = parseInt(document.getElementById('scoreEco').value) || 0;
+            const aca = parseInt(document.getElementById('scoreAca').value) || 0;
+            const soc = parseInt(document.getElementById('scoreSoc').value) || 0;
+            document.getElementById('totalScore').textContent = eco + aca + soc;
+        }
+
+        function setDecision(decision) {
+            const form = document.getElementById('formEval');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const id = document.getElementById('evalSolicitudId').value;
+            const eco = parseInt(document.getElementById('scoreEco').value) || 0;
+            const aca = parseInt(document.getElementById('scoreAca').value) || 0;
+            const soc = parseInt(document.getElementById('scoreSoc').value) || 0;
+            const total = eco + aca + soc;
+
+            const comments = document.querySelector('[name="comments"]').value;
+
+            const evaluation = {
+                score: total,
+                comments: comments,
+                evaluatorId: user.id,
+                details: { eco, aca, soc }
+            };
+
+            // Update
+            const apps = StorageManager.get(APP_KEYS.SOLICITUDES) || [];
+            const idx = apps.findIndex(a => a.id === id);
+            if (idx !== -1) {
+                apps[idx].status = decision;
+                apps[idx].evaluation = evaluation;
+                StorageManager.set(APP_KEYS.SOLICITUDES, apps);
+            }
+
+            closeModal();
+            loadApplications();
+        }
+
+        loadApplications();
+    </script>
+</body>
+
+</html>
