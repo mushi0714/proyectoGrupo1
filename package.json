@@ -20,6 +20,11 @@
   "homepage": "https://github.com/jvarelafwdcostarica-droid/proyectoGrupo1#readme",
   "dependencies": {
     "cors": "^2.8.6",
+<<<<<<< HEAD
     "express": "^5.2.1"
+=======
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11"
+>>>>>>> 3f2a88ee87374b2bf2cc3d4661db2e13a2ae3e4b
   }
 }
