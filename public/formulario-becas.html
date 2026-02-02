@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postulación Becas Socioeconómicas 2026</title>
+    <!-- Enlace al archivo CSS externo -->
+    <link rel="stylesheet" href="css/estilos-becas.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Encabezado del formulario -->
+        <div class="header">
+            <h1>BECAS SOCIOECONÓMICAS 2026</h1>
+            <p>Formulario de Postulación | Cierre de inscripciones: 31 de mayo de 2026</p>
+        </div>
+
+        <!-- Formulario principal -->
+        <form id="scholarshipForm">
+            <!-- Sección Datos Personales -->
+            <div class="form-section">
+                <h2>Datos Personales <span class="required">*</span></h2>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="nombre">Nombres completos <span class="required">*</span></label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej: María Alejandra" required>
+                        <div class="error-message" id="error-nombre"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Apellidos completos <span class="required">*</span></label>
+                        <input type="text" id="apellido" name="apellido" placeholder="Ej: Rodríguez González" required>
+                        <div class="error-message" id="error-apellido"></div>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="dni">Cédula/Identificación <span class="required">*</span></label>
+                        <input type="text" id="dni" name="dni" placeholder="Ej: 1-2345-6789" required>
+                        <div class="error-message" id="error-dni"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaNac">Fecha de nacimiento <span class="required">*</span></label>
+                        <input type="date" id="fechaNac" name="fechaNac" required>
+                        <div class="error-message" id="error-fechaNac"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="correo">Correo electrónico <span class="required">*</span></label>
+                    <input type="email" id="correo" name="correo" placeholder="Ej: maria.rodriguez@email.com" required>
+                    <div class="error-message" id="error-correo"></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="telefono">Teléfono fijo</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="Ej: 2233-4455">
+                    </div>
+                    <div class="form-group">
+                        <label for="celular">Teléfono celular <span class="required">*</span></label>
+                        <input type="tel" id="celular" name="celular" placeholder="Ej: 8877-6655" required>
+                        <div class="error-message" id="error-celular"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección Datos de Residencia -->
+            <div class="form-section">
+                <h2>Datos de Residencia <span class="required">*</span></h2>
+                <div class="form-group">
+                    <label for="direccion">Dirección completa <span class="required">*</span></label>
+                    <input type="text" id="direccion" name="direccion" placeholder="Ej: Calle 5, Casa 123, Barrio San José" required>
+                    <div class="error-message" id="error-direccion"></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="provincia">Provincia <span class="required">*</span></label>
+                        <select id="provincia" name="provincia" required>
+                            <option value="">Seleccione una provincia</option>
+                            <option value="San José">San José</option>
+                            <option value="Alajuela">Alajuela</option>
+                            <option value="Cartago">Cartago</option>
+                            <option value="Heredia">Heredia</option>
+                            <option value="Guanacaste">Guanacaste</option>
+                            <option value="Puntarenas">Puntarenas</option>
+                            <option value="Limón">Limón</option>
+                        </select>
+                        <div class="error-message" id="error-provincia"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="distrito">Distrito <span class="required">*</span></label>
+                        <input type="text" id="distrito" name="distrito" placeholder="Ej: San Sebastián" required>
+                        <div class="error-message" id="error-distrito"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección Datos Académicos -->
+            <div class="form-section">
+                <h2>Datos Académicos <span class="required">*</span></h2>
+                <div class="form-group">
+                    <label for="nivelEstudio">Nivel de estudio que cursará <span class="required">*</span></label>
+                    <select id="nivelEstudio" name="nivelEstudio" required>
+                        <option value="">Seleccione un nivel</option>
+                        <option value="Bachillerato">Bachillerato</option>
+                        <option value="Técnico">Técnico</option>
+                        <option value="Tecnológico">Tecnológico</option>
+                        <option value="Pregrado">Pregrado</option>
+                        <option value="Posgrado">Posgrado</option>
+                    </select>
+                    <div class="error-message" id="error-nivelEstudio"></div>
+                </div>
+                <div class="form-group">
+                    <label for="institucion">Institución educativa <span class="required">*</span></label>
+                    <input type="text" id="institucion" name="institucion" placeholder="Ej: Universidad de Costa Rica" required>
+                    <div class="error-message" id="error-institucion"></div>
+                </div>
+                <div class="form-group">
+                    <label for="carrera">Carrera/Programa de estudio <span class="required">*</span></label>
+                    <input type="text" id="carrera" name="carrera" placeholder="Ej: Ingeniería en Sistemas Computacionales" required>
+                    <div class="error-message" id="error-carrera"></div>
+                </div>
+                <div class="form-group">
+                    <label for="promedio">Promedio académico actual (0-100) <span class="required">*</span></label>
+                    <input type="number" id="promedio" name="promedio" min="0" max="100" required>
+                    <div class="error-message" id="error-promedio"></div>
+                </div>
+            </div>
+
+            <!-- Sección Datos Socioeconómicos -->
+            <div class="form-section">
+                <h2>Datos Socioeconómicos <span class="required">*</span></h2>
+                <div class="form-group">
+                    <label for="integrantesHogar">Número de integrantes en el hogar <span class="required">*</span></label>
+                    <input type="number" id="integrantesHogar" name="integrantesHogar" min="1" required>
+                    <div class="error-message" id="error-integrantesHogar"></div>
+                </div>
+                <div class="form-group">
+                    <label for="ingresoMensual">Ingreso mensual total del hogar (CRC) <span class="required">*</span></label>
+                    <input type="number" id="ingresoMensual" name="ingresoMensual" min="0" required>
+                    <div class="error-message" id="error-ingresoMensual"></div>
+                </div>
+                <div class="form-group">
+                    <label for="descripcionHogar">Descripción breve de la situación socioeconómica (máx. 500 caracteres) <span class="required">*</span></label>
+                    <textarea id="descripcionHogar" name="descripcionHogar" rows="4" maxlength="500" placeholder="Explique brevemente su situación, necesidades y por qué necesita la beca..." required></textarea>
+                    <div class="error-message" id="error-descripcionHogar"></div>
+                </div>
+            </div>
+
+            <!-- Botón de envío y mensaje de éxito -->
+            <button type="submit" class="btn-submit">Enviar Postulación</button>
+            <div class="success-message" id="successMessage">
+                ¡Postulación enviada exitosamente! Nos pondremos en contacto contigo a través de tu correo electrónico en los próximos 5 días hábiles.
+            </div>
+        </form>
+    </div>
+
+    <!-- Enlace al archivo JavaScript externo -->
+    <script src="validacion-becas.js"></script>
+</body>
+</html>
