@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Becas Socioeconómicas | Educación para Todos</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>  
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">BECAS<span>PRO</span></div>
+            <ul class="nav-links">
+                <li><a href="#informacion">Información</a></li>
+                <li><a href="#requisitos">Requisitos</a></li>
+                <li><a href="#carreras">Carreras</a></li>
+                <li><a href="#calendario">Calendario</a></li>
+                <li><a href="#suscripcion">Suscripción</a></li>
+                <li><a href="#resultado">Consultar Resultado</a></li>
+                <li><a href="registro.html">Registrarse</a></li>
+                <li><a href="#login" class="btn-login">Iniciar Sesión</a></li>
+            </ul>
+            <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <!-- Sección Principal -->
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Becas Socioeconómicas 2026</h1>
+            <p>Tu futuro académico empieza aquí</p>
+            <a href="#requisitos" class="btn-primary">Postula Ahora</a>
+        </div>
+    </header>
+
+    <!-- Sección de Información -->
+    <section id="informacion" class="section">
+        <div class="container">
+            <h2 class="section-title">¿Qué son las Becas Socioeconómicas?</h2>
+            <div class="info-content">
+                <p>Estas becas apoyan a estudiantes costarricenses con necesidades económicas demostradas, cubriendo matrícula, material didáctico y apoyo alimentario. Dirigidas a personas con compromiso académico y disposición de contribuir a su comunidad.</p>
+                <p>El programa está avalado por instituciones públicas y privadas del cantón de San José.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Requisitos -->
+    <section id="requisitos" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Requisitos de Postulación</h2>
+            <div class="requisitos-grid">
+                <div class="requisito-card">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3>Académicos</h3>
+                    <ul>
+                        <li>Promedio mínimo de 7.0 en estudios previos</li>
+                        <li>Constancia de inscripción en carrera elegible</li>
+                        <li>Certificado de antecedentes académicos</li>
+                    </ul>
+                </div>
+                <div class="requisito-card">
+                    <i class="fas fa-home"></i>
+                    <h3>Socioeconómicos</h3>
+                    <ul>
+                        <li>Ingresos familiares ≤ ₡800.000 mensuales</li>
+                        <li>Certificado de vivienda</li>
+                        <li>Declaración jurada de necesidades</li>
+                    </ul>
+                </div>
+                <div class="requisito-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Documentación</h3>
+                    <ul>
+                        <li>Cédula de identidad</li>
+                        <li>CV actualizado</li>
+                        <li>Carta de motivación y recomendación</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Formulario de Postulación -->
+            <div class="postulacion-form-container">
+                <h3 class="form-title">Formulario de Postulación</h3>
+                <form id="form-postulacion" class="form-postulacion">
+                    <div class="form-row">
+                        <input type="text" name="nombre" placeholder="Nombre completo" required>
+                        <input type="text" name="cedula" placeholder="Número de cédula" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="email" name="email" placeholder="Correo electrónico" required>
+                        <select name="carrera" required>
+                            <option value="">Selecciona tu carrera</option>
+                            <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+                            <option value="Educación Primaria">Educación Primaria</option>
+                            <option value="Medicina">Medicina</option>
+                            <option value="Ciencias Ambientales">Ciencias Ambientales</option>
+                            <option value="Derecho">Derecho</option>
+                            <option value="Agronomía">Agronomía</option>
+                        </select>
+                    </div>
+                    <textarea name="motivacion" placeholder="Carta de motivación (breve)" rows="3" required></textarea>
+                    <button type="submit" class="btn-primary">Enviar Postulación</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Carreras -->
+    <section id="carreras" class="section">
+        <div class="container">
+            <h2 class="section-title">Carreras Elegibles</h2>
+            <div class="carreras-list">
+                <div class="carrera-item"><i class="fas fa-code"></i> Ingenierías (Sistemas, Civil, Industrial)</div>
+                <div class="carrera-item"><i class="fas fa-book"></i> Educación (Primaria, Secundaria)</div>
+                <div class="carrera-item"><i class="fas fa-heartbeat"></i> Medicina y Enfermería</div>
+                <div class="carrera-item"><i class="fas fa-balance-scale"></i> Derecho y Ciencias Sociales</div>
+                <div class="carrera-item"><i class="fas fa-tree"></i> Ciencias Ambientales y Agronomía</div>
+                <div class="carrera-item"><i class="fas fa-flask"></i> Ciencias Biológicas y Químicas</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Calendario -->
+    <section id="calendario" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Calendario de Fechas Límite</h2>
+            <div class="calendario-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Evento</th>
+                            <th>Fecha Límite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Apertura de postulaciones</td><td>01/03/2026</td></tr>
+                        <tr><td>Cierre de postulaciones</td><td>30/04/2026</td></tr>
+                        <tr><td>Evaluación de documentos</td><td>01/05 - 20/05/2026</td></tr>
+                        <tr><td>Notificación de resultados</td><td>30/05/2026</td></tr>
+                        <tr><td>Inscripción de beneficiarios</td><td>05/06/2026</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Suscripción -->
+    <section id="suscripcion" class="section">
+        <div class="container">
+            <h2 class="section-title">Mantente Informado</h2>
+            <p class="suscripcion-text">Recibe actualizaciones sobre fechas, requisitos y novedades del programa.</p>
+            <form id="form-suscripcion" class="form-suscripcion">
+                <input type="text" name="sus-nombre" placeholder="Nombre completo" required>
+                <input type="email" name="sus-email" placeholder="Correo electrónico" required>
+                <button type="submit" class="btn-primary">Suscribirme</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Sección de Resultados -->
+    <section id="resultado" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Resultado de Postulación</h2>
+            <div class="resultado-card">
+                <p>Ingresa tu cédula para consultar el estado de tu solicitud.</p>
+                <form id="form-consulta-resultado">
+                    <input type="text" name="cons-cedula" placeholder="Número de cédula" required>
+                    <button type="submit" class="btn-primary">Consultar</button>
+                </form>
+                <div id="resultado-mensaje" class="resultado-mensaje hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Panel de Administrador -->
+    <section id="admin-panel" class="section hidden">
+        <div class="container">
+            <div class="admin-header">
+                <h2 class="section-title">Panel de Administración</h2>
+                <button id="cerrar-sesion" class="btn-secondary">Cerrar Sesión</button>
+            </div>
+            
+            <div class="admin-section">
+                <h3>Postulantes Registrados</h3>
+                <button id="actualizar-estados" class="btn-secondary">Asignar Estados Aleatorios</button>
+                <div class="admin-table">
+                    <table id="tabla-postulantes">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Cédula</th>
+                                <th>Carrera</th>
+                                <th>Correo</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>Suscriptores Registrados</h3>
+                <div class="admin-table">
+                    <table id="tabla-suscriptores">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Inicio de Sesión -->
+    <div id="login-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="form-login" class="form-login">
+                <input type="text" name="usuario" placeholder="Usuario" required>
+                <input type="password" name="contraseña" placeholder="Contraseña" required>
+                <button type="submit" class="btn-primary">Ingresar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pie de Página -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Becas Socioeconómicas - San José, Costa Rica</p>
+            <div class="redes">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+</head>
+<body>
+    
+</body>
+</html>
